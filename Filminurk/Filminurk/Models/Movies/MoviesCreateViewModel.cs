@@ -1,4 +1,5 @@
 ﻿using Filminurk.Core.Domain;
+using static Filminurk.Core.Domain.MovieGenre;
 
 namespace Filminurk.Models.Movies
 {
