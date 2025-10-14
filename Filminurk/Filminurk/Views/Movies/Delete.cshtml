@@ -1,0 +1,52 @@
+﻿﻿@model Filminurk.Models.Movies.MoviesDeleteViewModel
+
+<h1>Kustuta Film</h1>
+
+<div>
+	<h4>Film</h4>
+	<hr />
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="ID" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.Title)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="Description" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.Description)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="FirstPublished" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.FirstPublished)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="Director" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.Director)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="CurrentRating" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.CurrentRating)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="MovieGenre" class="col-sm-2" col-form-label""></label>
+			@Html.DisplayFor(model => model.MovieGenre)
+		</div>
+	</dl>
+
+	
+
+</div>

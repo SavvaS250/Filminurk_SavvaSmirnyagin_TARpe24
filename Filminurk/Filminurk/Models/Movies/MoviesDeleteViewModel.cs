@@ -1,15 +1,14 @@
 ﻿using Filminurk.Core.Domain;
-using static Filminurk.Core.Domain.MovieGenre;
 
 namespace Filminurk.Models.Movies
 {
-    public class MoviesCreateViewModel
+    public class MoviesDeleteViewModel
     {
-        public Guid ID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateOnly FirstPublished { get; set; }
-        public string Director { get; set; }
+        public Guid? ID { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public DateOnly? FirstPublished { get; set; }
+        public string? Director { get; set; }
         public List<string>? Actors { get; set; }
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }

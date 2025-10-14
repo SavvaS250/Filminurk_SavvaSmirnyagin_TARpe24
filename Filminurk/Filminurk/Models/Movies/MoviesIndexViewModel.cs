@@ -9,7 +9,7 @@ namespace Filminurk.Models.Movies
         public DateOnly FirstPublished { get; set; }
         public double? CurrentRating { get; set; }
 
-        public Genre? MovieGenre { get; set; }
+        public MovieGenre? MovieGenre { get; set; }
         public string? Country { get; set; }
     }
 }
