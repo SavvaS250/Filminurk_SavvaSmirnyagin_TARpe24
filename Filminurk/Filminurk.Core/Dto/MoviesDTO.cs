@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Filminurk.Core.Domain;
 using static Filminurk.Core.Domain.MovieGenre;
 
 namespace Filminurk.Core.Dto
@@ -17,7 +18,7 @@ namespace Filminurk.Core.Dto
         public List<string>? Actors { get; set; }
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
-        public Genre? MovieGenre { get; set; }
+        public MovieGenre? MovieGenre { get; set; }
         public string? Country { get; set; }
         public int? Revenue { get; set; }
 

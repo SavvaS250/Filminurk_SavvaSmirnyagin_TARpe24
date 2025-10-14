@@ -19,7 +19,7 @@ namespace Filminurk.Core.Domain
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
 
-        public Genre? MovieGenre { get; set; }
+        public MovieGenre? MovieGenre { get; set; }
         public string? Country { get; set; }
         public int? Revenue { get; set; }
     }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Filminurk.Core.Domain
 {
-    public class MovieGenre
-    {
-        public enum Genre
-        {
-            Horror, Action, Superhero, Anime, Romance, Comedy, AISlop, Documentary, MadeForTv, Cartoon, Silent, FilmNoir
-        }
-    }
+     public enum MovieGenre
+     {
+          Horror, Action, Superhero, Anime, Romance, Comedy, AISlop, Documentary, MadeForTv, Cartoon, Silent, FilmNoir
+     }
+    
 }

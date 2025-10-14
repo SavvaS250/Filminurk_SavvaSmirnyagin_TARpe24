@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Filminurk.Data\Filminurk.Data.csproj" />
+  </ItemGroup>
+
 </Project>
