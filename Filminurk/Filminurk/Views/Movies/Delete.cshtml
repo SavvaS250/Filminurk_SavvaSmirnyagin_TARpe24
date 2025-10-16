@@ -1,4 +1,5 @@
-﻿﻿@model Filminurk.Models.Movies.MoviesDeleteViewModel
+﻿
+@model Filminurk.Models.Movies.MoviesDeleteViewModel
 
 <h1>Kustuta Film</h1>
 
@@ -46,7 +47,11 @@
 			@Html.DisplayFor(model => model.MovieGenre)
 		</div>
 	</dl>
-
-	
+	<hr />
+	<form asp-action="DeleteConfirmation">
+		<input type="hidden" asp-for="ID"/>
+		<input type="submit" value="Remove" class="btn btn-danger"/>
+		<a asp-action="Index" asp-controller="Movies" class="btn btn-success">Return to list</a>
+	</form>
 
 </div>

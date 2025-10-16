@@ -1,11 +1,12 @@
-﻿﻿@model IEnumerable<Filminurk.Models.Movies.MoviesIndexViewModel>
+﻿
+@model IEnumerable<Filminurk.Models.Movies.MoviesIndexViewModel>
 
 @{
     int rowNumber = 1;
 }
 
 <div>
-    <a asp-action="Create" asp-controller="Movies" type="submit" class="btn btn-primary"></a>
+    <a asp-action="Create" asp-controller="Movies" type="submit" class="btn btn-primary">Lisa film</a>
 </div>
 <div class="h1">
     Filmid
@@ -31,10 +32,10 @@
                     <td>@movie.Title</td>
                     <td>@movie.FirstPublished</td>
                     <td>@movie.CurrentRating</td>
-                    <td>@movie.CountryOfOrigin</td>
+                    <td>@movie.Country</td>
                     <td>@movie.MovieGenre</td>
                     <td>
-                        <a asp-action="Delete" asp-controller="Movies" asp-route=""></a>
+                        <a asp-action="Delete" asp-controller="Movies" asp-route-id="@movie.ID" class="btn btn-outline-danger">Remove</a>
                     </td>
                 </tr>
                 rowNumber +=1;

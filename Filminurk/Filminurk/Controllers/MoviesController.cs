@@ -1,8 +1,12 @@
-﻿using Filminurk.Core.Dto;
+﻿using Filminurk.Core.Domain;
+using System.Diagnostics.Metrics;
+using System.IO;
+using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Filminurk.Controllers
 {
@@ -66,5 +70,43 @@ namespace Filminurk.Controllers
 
             
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+           var movie = await _movieServices.DetailsAsync(id);
+            
+            if(movie == null)
+            {
+                return NotFound();
+            }
+            var vm = new MoviesDeleteViewModel();
+            vm.ID = movie.ID;
+            vm.Title = movie.Title;
+            vm.Description = movie.Description;
+            vm.FirstPublished = movie.FirstPublished;
+            vm.CurrentRating = movie.CurrentRating;
+            vm.Director = movie.Director;
+            vm.Actors = movie.Actors;
+            vm.Country = movie.Country;
+            vm.MovieGenre = movie.MovieGenre;
+            vm.Revenue = movie.Revenue;
+            vm.EntryCreatedAt = movie.EntryCreatedAt;
+            vm.EntryModifiedAt = movie.EntryModifiedAt;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var movie = await _movieServices.Delete(id);
+            if(movie == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        
     }
 }

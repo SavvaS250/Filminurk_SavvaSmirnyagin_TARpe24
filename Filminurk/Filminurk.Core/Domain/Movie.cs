@@ -22,5 +22,9 @@ namespace Filminurk.Core.Domain
         public MovieGenre? MovieGenre { get; set; }
         public string? Country { get; set; }
         public int? Revenue { get; set; }
+
+        /* andmebaasi jaoks vajalikud */
+        public DateTime? EntryCreatedAt { get; set; }
+        public DateTime? EntryModifiedAt { get; set; }
     }
 }
