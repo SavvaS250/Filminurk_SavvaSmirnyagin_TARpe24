@@ -1,7 +1,17 @@
 ﻿@using Filminurk.Core.Domain
 @model Filminurk.Models.Movies.MoviesCreateUpdateViewModel
 
-<h1>Lisa Film</h1>
+
+
+@if (Model.ID.HasValue)
+{
+    
+    <h1>Muuda Film</h1>
+}
+else
+{
+    <h1>Lisa Film</h1>
+}
 <div>
     <form method="post" enctype="multipart/form-data">
         <input asp-for="ID" type="hidden" />
@@ -60,7 +70,16 @@
             </div>
         </div>
 
-        <input asp-action="Create" asp-controller="Movies" type="submit" class="btn btn-primary" value="Create" />
+        @if (Model.ID.HasValue)
+        {
+
+            <input asp-action="Update" asp-controller="Movies" type="submit" class="btn btn-primary" value="Update" />
+        }
+        else
+        {
+            <input asp-action="Create" asp-controller="Movies" type="submit" class="btn btn-primary" value="Create" />
+        }
+       <a asp-action="Index" asp-controller="Movies" class="btn btn-success">Back</a>
 
     </form>
 </div>
