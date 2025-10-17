@@ -72,6 +72,34 @@ namespace Filminurk.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var movie = await _movieServices.DetailsAsync(id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            var vm = new MoviesDetailsViewModel();
+            vm.ID = movie.ID;
+            vm.Title = movie.Title;
+            vm.Description = movie.Description;
+            vm.FirstPublished = movie.FirstPublished;
+            vm.CurrentRating = movie.CurrentRating;
+            vm.Director = movie.Director;
+            vm.Actors = movie.Actors;
+            vm.Country = movie.Country;
+            vm.MovieGenre = movie.MovieGenre;
+            vm.Revenue = movie.Revenue;
+            vm.EntryCreatedAt = movie.EntryCreatedAt;
+            vm.EntryModifiedAt = movie.EntryModifiedAt;
+
+            return View(vm);
+
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
             var movie = await _movieServices.DetailsAsync(id);
