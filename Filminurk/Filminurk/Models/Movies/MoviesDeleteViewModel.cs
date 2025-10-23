@@ -12,6 +12,11 @@ namespace Filminurk.Models.Movies
         public List<string>? Actors { get; set; }
         public double? CurrentRating { get; set; }
         //public List<UserComment>? Reviews { get; set; }
+
+        /*kaasaoelvate piltide andmeomadused*/
+        public List<ImageViewModel> Images { get; set; } = new List<ImageViewModel>();
+
+
         public MovieGenre? MovieGenre { get; set; }
         public string? Country { get; set; }
         public int? Revenue { get; set; }
