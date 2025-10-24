@@ -27,14 +27,14 @@ namespace Filminurk.ApplicationServices.Services
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {
-                if (Directory.Exists(_webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\"))
+                if (!Directory.Exists(_webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\"))
                 {
                     Directory.CreateDirectory(_webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\");
                 }
 
                 foreach (var file in dto.Files)
                 {
-                    string uploadFolder = Path.Combine(_webHost.ContentRootPath, "wwwroot", "\\wwwroot\\multipleFileUpload\\");
+                    string uploadFolder = Path.Combine(_webHost.ContentRootPath, "wwwroot", "multipleFileUpload");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string filePath = Path.Combine(uploadFolder, uniqueFileName);
 
@@ -44,11 +44,11 @@ namespace Filminurk.ApplicationServices.Services
                         FileToApi path = new FileToApi
                         {
                             ImageID = Guid.NewGuid(),
-                            ExistingFilePath = filePath,
+                            ExistingFilePath = uniqueFileName,
                             MovieID = domain.ID,
                         };
 
-                        _context.FilesToApi.AddAsync(path);
+                        _context.FilesToApi.Add(path);
                     }
 
                 } 
@@ -71,6 +71,8 @@ namespace Filminurk.ApplicationServices.Services
 
             return null;
         }
+
+        
 
         public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dtos)
         {

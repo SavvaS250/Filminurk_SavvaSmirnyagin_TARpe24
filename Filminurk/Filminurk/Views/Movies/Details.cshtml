@@ -53,6 +53,12 @@
 			@Html.DisplayFor(model => model.MovieGenre)
 		</div>
 	</dl>
+	<dl>
+		@foreach(var image in Model.Images)
+		{
+			<partial name="_Images" model="image"></partial>
+		}
+	</dl>
 
 	<hr />
 

@@ -91,7 +91,7 @@ namespace Filminurk.ApplicationServices.Services
                     FilePath = y.ExistingFilePath
                 }).ToArrayAsync();
 
-            await _filesServices.RemoveImageFromApi(images);
+            await _filesServices.RemoveImagesFromApi(images);
             _context.Movies.Remove(result);
             await _context.SaveChangesAsync();
 

@@ -70,10 +70,16 @@ else
             </div>
         </div>
 
+        <div class="form-group row">
+            <label asp-for="Files" class="col-sm-2 col-form-label"></label>
+            <div class="col-cm-10">
+                <input class="form-control" asp-for="Files" multiple type="file"/>
+            </div>
+        </div>
 
         @foreach(var images in Model.Images)
         {
-            <partial name="_Images" model="Images" />
+            <partial name="_Images" model="images" />
             <input asp-action="removeImage" asp-controller="Movies" asp-route-ImageID="@images.ImageID" type="submit" class="btn btn-success" value="Eemalda see pilt"/>
         }
 

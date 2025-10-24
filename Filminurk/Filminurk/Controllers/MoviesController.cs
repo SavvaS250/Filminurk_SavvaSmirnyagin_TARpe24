@@ -7,6 +7,7 @@ using Filminurk.Data;
 using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Filminurk.Data.Migrations;
 
 namespace Filminurk.Controllers
 {
@@ -49,38 +50,42 @@ namespace Filminurk.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MoviesCreateUpdateViewModel vm)
         {
-            var dto = new MoviesDTO()
+            if (ModelState.IsValid == true)
             {
-                ID = vm.ID,
-                Title = vm.Title,
-                Description = vm.Description,
-                FirstPublished = vm.FirstPublished,
-                CurrentRating = vm.CurrentRating,
-                Director = vm.Director,
-                Actors = vm.Actors,
-                Country = vm.Country,
-                MovieGenre = vm.MovieGenre,
-                Revenue = vm.Revenue,
-                EntryCreatedAt = vm.EntryCreatedAt,
-                EntryModifiedAt = vm.EntryModifiedAt,
-                Files = vm.Files,
-                FilesToApiDtos = vm.Images
-                .Select(x => new FileToApiDto
+
+                var dto = new MoviesDTO()
                 {
-                    ImageID = x.ImageID,
-                    FilePath = x.FilePath,
-                    MovieID = x.MovieID,
-                    IsPoster = x.IsPoster,
-                }).ToArray()
-            };
-            var result = await _movieServices.Create(dto);
-            if(result == null)
-            {
-               return NotFound();
+                    ID = vm.ID,
+                    Title = vm.Title,
+                    Description = vm.Description,
+                    FirstPublished = vm.FirstPublished,
+                    CurrentRating = vm.CurrentRating,
+                    Director = vm.Director,
+                    Actors = vm.Actors,
+                    Country = vm.Country,
+                    MovieGenre = vm.MovieGenre,
+                    Revenue = vm.Revenue,
+                    EntryCreatedAt = vm.EntryCreatedAt,
+                    EntryModifiedAt = vm.EntryModifiedAt,
+                    Files = vm.Files,
+                    FilesToApiDtos = vm.Images
+                    .Select(x => new FileToApiDto
+                    {
+                        ImageID = x.ImageID,
+                        FilePath = x.FilePath,
+                        MovieID = x.MovieID,
+                        IsPoster = x.IsPoster,
+                    }).ToArray()
+                };
+                var result = await _movieServices.Create(dto);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index));
+            
             }
             return RedirectToAction(nameof(Index));
-
-            
         }
 
         [HttpGet]
@@ -92,6 +97,8 @@ namespace Filminurk.Controllers
             {
                 return NotFound();
             }
+            ImageViewModel[] images = await FileFromDatabase(id);
+
             var vm = new MoviesDetailsViewModel();
             vm.ID = movie.ID;
             vm.Title = movie.Title;
@@ -105,6 +112,7 @@ namespace Filminurk.Controllers
             vm.Revenue = movie.Revenue;
             vm.EntryCreatedAt = movie.EntryCreatedAt;
             vm.EntryModifiedAt = movie.EntryModifiedAt;
+            vm.Images.AddRange(images);
 
             return View(vm);
 
@@ -225,6 +233,19 @@ namespace Filminurk.Controllers
                 return NotFound();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<ImageViewModel[]> FileFromDatabase(Guid id)
+        {
+            return await _context.FilesToApi
+                .Where(x => x.MovieID == id)
+                .Select(y => new ImageViewModel
+                {
+                    ImageID = y.ImageID,
+                    MovieID = y.MovieID,
+                    IsPoster = y.IsPoster,
+                    FilePath = y.ExistingFilePath
+                }).ToArrayAsync();
         }
         
     }
