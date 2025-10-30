@@ -26,6 +26,7 @@ namespace Filminurk.ApplicationServices.Services
             actor.FirstName = dto.FirstName;
             actor.LastName = dto.LastName;
             actor.NickName = dto.NickName;
+            actor.ActorType = dto.ActorType;
             //actor.MoviesActedFor = dto.MoviesActedFor;
             //actor.PortraitID = dto.PortraitID;
             actor.ActorAge = (int)dto.ActorAge;
