@@ -1,0 +1,82 @@
+﻿@using Filminurk.Core.Domain
+@model Filminurk.Models.Actors.ActorsCreateUpdateViewModel
+
+
+@if (Model.ActorID.HasValue)
+{
+	<h1>Muuda näitlejat</h1>
+}
+else
+{
+	<h1>Lisa näitleja</h1>
+}
+<div>
+	<form method="post" enctype="multipart/form-data">
+		<input asp-for="ActorID" type="hidden"/>
+		<input asp-for="EntryCreatedAt" type="hidden"/>
+		<input asp-for="EntryModifiedAt" type="hidden"/>
+
+		<div class="form-group row">
+			<label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="FirstName" class="form-control"/>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="LastName" class="form-control"/>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="NickName" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="NickName" class="form-control" />
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="ActorAge" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="ActorAge" class="form-control" />
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="ActorType" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<select asp-for="ActorType" asp-items="Html.GetEnumSelectList<ActorType>()">
+					<option value="">-- Vali näitleja tüüp --</option>
+				</select>
+				<span asp-validation-for="ActorType"></span>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="CareerStart" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="CareerStart" class="form-control" />
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label asp-for="CareerEnd" class="col-sm-2 col-form-label"></label>
+			<div class="col-sm-10">
+				<input asp-for="CareerEnd" class="form-control" />
+			</div>
+		</div>
+
+		@if (Model.ActorID.HasValue)
+		{
+			<input asp-action="Update" asp-controller="Actors" type="submit" class="btn btn-primary" value="Muuda" />
+		}
+		else
+		{
+			<input asp-action="Create" asp-controller="Actors" type="submit" class="btn btn-primary" value="Loo" />
+		}
+		<a asp-action="Index" asp-controller="Actors" class="btn btn-success">Tagasi</a>
+
+	</form>
+</div>

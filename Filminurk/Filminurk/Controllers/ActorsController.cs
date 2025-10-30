@@ -1,4 +1,6 @@
-﻿using Filminurk.Core.Dto;
+﻿using Filminurk.ApplicationServices.Services;
+using Filminurk.Core.Dto;
+using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Actors;
 using Filminurk.Models.Actros;
@@ -9,10 +11,16 @@ namespace Filminurk.Controllers
     public class ActorsController : Controller
     {
         private readonly FilminurkTARpe24Context _context;
+        private readonly IActorSevices _actorServices;
 
-        public ActorsController(FilminurkTARpe24Context context)
+        public ActorsController
+            (
+            FilminurkTARpe24Context context,
+            IActorSevices actorSevices
+            )
         {
             _context = context;
+            _actorServices = actorSevices;
         }
         public IActionResult Index()
         {
