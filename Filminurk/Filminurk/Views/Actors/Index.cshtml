@@ -1,1 +1,44 @@
-﻿
+﻿@model IEnumerable<Filminurk.Models.Actros.ActorsIndexViewModel>
+
+@{
+	int rowNumber = 1;
+}
+
+<div>
+	<a asp-action="Create" asp-controller="Actors" type="submit" class="btn btn-primary">Lisa näitleja</a>
+</div>
+<div class="h1">
+	Näitlejad
+</div>
+<form method="get">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Eesnimi</th>
+				<th scope="col">Perekonnanimi</th>
+				<th scope="col">Hüüdnimi</th>
+				<th scope="col">Näitleja tüüp</th>
+				<th scope="col">Kärjääri algus</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var actor in Model)
+			{
+				<tr>
+					<td>@rowNumber</td>
+					<td>@actor.FirstName</td>
+					<td>@actor.LastName</td>
+					<td>@actor.NickName</td>
+					<td>@actor.ActorType</td>
+					<td>@actor.CareerStart</td>
+					<td>
+						<a asp-action="Details" asp-controller="Actors" asp-route-id="@actor.ActorID" class="btn btn-outline-primary">Info</a>
+						<a asp-action="Update" asp-controller="Actors" asp-route-id="@actor.ActorID" class="btn btn-outline-primary">Muuda</a>
+						<a asp-action="Delete" asp-controller="Actors" asp-route-id="@actor.ActorID" class="btn btn-outline-danger">Kustuta</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</form>
