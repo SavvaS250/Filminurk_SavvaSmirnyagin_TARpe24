@@ -38,8 +38,8 @@ namespace Filminurk.ApplicationServices.Services
             movie.Actors = dto.Actors;
             movie.Director = dto.Director;
             movie.MovieGenre = dto.MovieGenre;
-            //movie.EntryCreatedAt = dto.EntryCreatedAt;
-            //movie.EntryModifiedAt = dto.EntryModifiedAt;
+            movie.EntryCreatedAt = DateTime.Now;
+            movie.EntryModifiedAt = DateTime.Now;
             _filesServices.FilesToApi(dto, movie);
             
             await _context.Movies.AddAsync(movie);

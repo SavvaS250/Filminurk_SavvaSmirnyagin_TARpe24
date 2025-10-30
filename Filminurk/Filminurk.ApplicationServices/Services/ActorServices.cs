@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Filminurk.Core.Domain;
+using Filminurk.Core.Dto;
+using Filminurk.Core.ServiceInterface;
+using Filminurk.Data;
+
+namespace Filminurk.ApplicationServices.Services
+{
+    public class ActorServices : IActorSevices
+    {
+        private readonly FilminurkTARpe24Context _context;
+
+        public ActorServices(FilminurkTARpe24Context context)
+        {
+            _context = context;
+        }
+
+        public async Task<Actor> Create(ActorDTO dto)
+        {
+            Actor actor = new Actor();
+            actor.ActorID = Guid.NewGuid();
+            actor.FirstName = dto.FirstName;
+            actor.LastName = dto.LastName;
+            actor.NickName = dto.NickName;
+            //actor.MoviesActedFor = dto.MoviesActedFor;
+            //actor.PortraitID = dto.PortraitID;
+            actor.ActorAge = (int)dto.ActorAge;
+            actor.CareerStart = DateTime.Now;
+            actor.CareerEnd = DateTime.Now;
+            actor.EntryCreatedAt = DateTime.Now;
+            actor.EntryModifiedAt = DateTime.Now;
+
+            await _context.Actors.AddAsync(actor);
+            await _context.SaveChangesAsync();
+
+            return actor;
+        }
+    }
+}
