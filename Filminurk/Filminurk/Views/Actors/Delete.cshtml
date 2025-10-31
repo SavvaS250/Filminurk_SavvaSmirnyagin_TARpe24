@@ -1,1 +1,61 @@
-﻿
+﻿@model Filminurk.Models.Actors.ActorsDeleteViewModel
+
+<h1>Kustuta näitleja</h1>
+
+<div>
+	<h4>Näitleja</h4>
+	<hr />
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="ActorID" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.FirstName)
+		</div>
+	</dl>
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.LastName)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="NickName" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.NickName)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="ActorAge" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.ActorAge)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="ActorType" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.ActorType)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="CareerStart" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.CareerStart)
+		</div>
+	</dl>
+
+	<dl class="row">
+		<div class="form-group-row">
+			<label asp-for="CareerEnd" class="col-sm-2 col-form-label"></label>
+			@Html.DisplayFor(model => model.CareerEnd)
+		</div>
+	</dl>
+	<hr />
+	<form asp-action="DeleteConfirmation">
+		<input type="hidden" asp-for="ActorID"/>
+		<input type="submit" value="Kustuta" class="btn btn-danger"/>
+		<a asp-action="Index" asp-controller="Actors" class="btn btn-success">Tagasi</a>
+	</form>
+</div>

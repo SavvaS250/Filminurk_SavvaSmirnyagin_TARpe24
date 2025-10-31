@@ -55,6 +55,8 @@ namespace Filminurk.ApplicationServices.Services
 
             _context.Actors.Remove(result);
             await _context.SaveChangesAsync();
+
+            return result;
         }
     }
 }
