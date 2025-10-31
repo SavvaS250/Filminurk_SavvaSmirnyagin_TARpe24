@@ -73,5 +73,11 @@ namespace Filminurk.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var actor = await _actorServices.DetailsAsync(id);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Filminurk.Core.ServiceInterface
     public interface IActorSevices
     {
         Task<Actor> Create(ActorDTO dto);
+        Task<Actor> DetailsAsync(Guid id);
     }
 }
