@@ -53,9 +53,9 @@
 		</div>
 	</dl>
 	<hr />
-	<form asp-action="DeleteConfirmation">
+	<form method="post" role="form">
 		<input type="hidden" asp-for="ActorID"/>
-		<input type="submit" value="Kustuta" class="btn btn-danger"/>
+		<input type="submit" asp-action="DeleteConfirmation" asp-route-id="@Model.ActorID" value="Kustuta" class="btn btn-danger" />
 		<a asp-action="Index" asp-controller="Actors" class="btn btn-success">Tagasi</a>
 	</form>
 </div>
