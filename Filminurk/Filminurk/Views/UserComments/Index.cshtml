@@ -20,8 +20,28 @@
 					<th scope="col">CommentBody</th>
 					<th scope="col">IsHarmful</th>
 					<th scope="col">CommentCreatedAt</th>
+					<th></th>
 				</tr>
 			</thead>
+			<tbody>
+				@foreach (var comment in Model)
+				{
+					<tr>
+						<td>@rowNumber</td>
+						<td>@comment.CommentID</td>
+						<td>@comment.CommentBody</td>
+						<td>@comment.IsHarmful</td>
+						<td>@comment.CommentCreatedAt</td>
+						<td>
+							<a asp-action="CommentDetails" asp-controller="UserComments" asp-route-id
+							="@comment.CommentID" class="btn btn-primary">Details</a>
+							<a asp-action="DeleteComment" asp-controller="UserComments" asp-route-id=
+							"@comment.CommentID" class="btn btn-primary">Delete</a>
+						</td>
+					</tr>
+					rowNumber+=1;
+				}
+			</tbody>
 		</table>
 	</form>
 </div>
