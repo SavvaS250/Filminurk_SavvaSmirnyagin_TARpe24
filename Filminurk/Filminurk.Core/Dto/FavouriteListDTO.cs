@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Filminurk.Core.Domain;
+using Microsoft.AspNetCore.Http;
 
 namespace Filminurk.Core.Dto
 {
@@ -17,10 +18,12 @@ namespace Filminurk.Core.Dto
         public bool IsPrivate { get; set; }
         public List<Movie>? ListOfMovies { get; set; }
         //public List<Actor>? ListOfMovies { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public IEnumerable<FileToDatabaseDTO> Image { get; set; } = new List<FileToDatabaseDTO>();
 
         public DateTime ListCreatedAt { get; set; }
-        public DateTime ListModifietAt { get; set; }
-        public DateTime ListDeletedAt { get; set; }
-        public bool IsReported { get; set; }
+        public DateTime? ListModifietAt { get; set; }
+        public DateTime? ListDeletedAt { get; set; }
+        public bool IsReported { get; set; } = false;
     }
 }

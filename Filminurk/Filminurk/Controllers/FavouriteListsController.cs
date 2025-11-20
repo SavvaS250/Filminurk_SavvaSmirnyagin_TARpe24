@@ -1,16 +1,22 @@
-﻿using Filminurk.Data;
+﻿using Filminurk.Core.Domain;
+using Filminurk.Core.Dto;
+using Filminurk.Core.ServiceInterface;
+using Filminurk.Data;
 using Filminurk.Models.FavouriteLists;
 using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Filminurk.Controllers
 {
     public class FavouriteListsController : Controller
     {
         private readonly FilminurkTARpe24Context _context;
-        public FavouriteListsController(FilminurkTARpe24Context context)
+        private readonly IFavouriteListsServices _favouriteListsServices;
+        public FavouriteListsController(FilminurkTARpe24Context context, IFavouriteListsServices favouriteListsServices)
         {
             _context = context;
+            _favouriteListsServices = favouriteListsServices;
         }
         public IActionResult Index()
         {
@@ -38,6 +44,71 @@ namespace Filminurk.Controllers
                 
                 
             return View(resultingLists);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var movies = _context.Movies
+                .OrderBy(m => m.Title)
+                .Select(mo => new MoviesIndexViewModel
+                {
+                    ID = mo.ID,
+                    Title = mo.Title,
+                    FirstPublished = mo.FirstPublished,
+                    MovieGenre = mo.MovieGenre,
+                })
+                .ToList();
+            ViewData["allMovies"] = movies;
+            ViewData["userHasSelected"] = new List<string>();
+            FavouriteListUserCreateViewModel vm = new();
+            return View("UserCreate", vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserCreate(FavouriteListUserCreateViewModel vm, List<string> userHasSelected,
+            List<MoviesIndexViewModel> movies) 
+        {
+            List<Guid> tempParse = new();
+            foreach (var stringID in userHasSelected)
+            {
+                tempParse.Add(Guid.Parse(stringID));
+            }
+
+            var newListDTO = new FavouriteListDTO()
+            {
+
+            };
+            newListDTO.ListName = vm.ListName;
+            newListDTO.ListDescription = vm.ListDescription;
+            newListDTO.IsMovieOrActor = vm.IsMovieOrActor;
+            newListDTO.IsPrivate = vm.IsPrivate;
+            newListDTO.ListCreatedAt = DateTime.UtcNow;
+            newListDTO.ListBelongsToUser = "00000000-0000-0000-0000-000000000001";
+            newListDTO.ListModifietAt = DateTime.UtcNow;
+            newListDTO.ListDeletedAt = vm.ListDeletedAt;
+            
+            List<Guid> convertedIDs = new List<Guid>();
+            if (newListDTO.ListOfMovies != null)
+            {
+                convertedIDs = MovieToID(newListDTO.ListOfMovies);
+            }
+            var newList = await _favouriteListsServices.Create(newListDTO, convertedIDs);
+            if (newList != null)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index", vm);
+        }
+
+        private List<Guid> MovieToID(List<Movie> listOfMovies)
+        {
+            var result = new List<Guid>();
+            foreach (var movie in listOfMovies)
+            {
+                result.Add(movie.ID);
+            }
+            return result;
         }
     }
 }
