@@ -9,17 +9,17 @@
 
 <div>
 	<form method="post" enctype="multipart/form-data">
-		<input asp-for="FavouriteID" type="hidden"/>
-		<input asp-for="ListCreatedAt" type="hidden"/>
-		<input asp-for="ListModifiedAt" type="hidden"/>
-		<input asp-for="ListDeletedAt" type="hidden"/>
-		<input asp-for="IsReported" type="hidden"/>
-		<input asp-for="ListBelongsToUser" type="hidden"/>
+		<input asp-for="FavouriteID" type="hidden" />
+		<input asp-for="ListCreatedAt" type="hidden" />
+		<input asp-for="ListModifietAt" type="hidden" />
+		<input asp-for="ListDeletedAt" type="hidden" />
+		<input asp-for="IsReported" type="hidden" />
+		<input asp-for="ListBelongsToUser" type="hidden" />
 
 		<div class="form-group-row">
 			<label asp-for="ListName" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-10">
-				<input asp-for="ListName" class="form-control"/>
+				<input asp-for="ListName" class="form-control" />
 			</div>
 		</div>
 
@@ -43,7 +43,7 @@
 		}
 		else
 		{
-			@foreach (var movie in ViewBag.allMovies)
+			@foreach (var movie in allMoviesTickBoxes)
 			{
 				<tr>
 					<td>@movie.Title</td>
@@ -52,22 +52,23 @@
 					<td>
 						@if (movie.ID.HasValue)
 						{
-							<input type="checkbox" name="userHasSelected" value="@movie.ID" id="checkbox-@movie.ID" 
+							<input type="checkbox" name="userHasSelected" value="@movie.ID" id="checkbox-@movie.ID"
 							@if (userHasSelected.Contains(movie.ID.ToString()))
 							{
 								@:checked
-							}
-							/>
+							} />
 						}
 						else
 						{
-							<input type="checkbox" name="userHasSelected" value="@movie.ID" id="checkbox-@movie.ID"/>
+								<input type="checkbox" name="userHasSelected" value="@movie.ID" id="checkbox-@movie.ID" />
 						}
 					</td>
+					<br />
 				</tr>
 			}
 		}
 
-		<input asp-action="UserCreate" asp-controller="FavouriteLists" type="submit" class="btn btn-primary" value="Tee nimekiri"/>
+		<input asp-action="UserCreate" asp-controller="FavouriteLists" type="submit" class="btn btn-primary" value="Tee nimekiri" />
+		<a asp-action="Index" class="btn btn-primary">Tagasi</a>
 	</form>
 </div>

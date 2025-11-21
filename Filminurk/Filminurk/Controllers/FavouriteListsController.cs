@@ -70,11 +70,13 @@ namespace Filminurk.Controllers
             List<MoviesIndexViewModel> movies) 
         {
             List<Guid> tempParse = new();
+            // tekib ajutiline guid list movieiD-de hoidmiseks
             foreach (var stringID in userHasSelected)
             {
+                //lisame iga stringi kohta järjendis userhasselected teisendatud guidi
                 tempParse.Add(Guid.Parse(stringID));
             }
-
+            //teeme uue  DTO nimekirja jaoks
             var newListDTO = new FavouriteListDTO()
             {
 
@@ -87,13 +89,22 @@ namespace Filminurk.Controllers
             newListDTO.ListBelongsToUser = "00000000-0000-0000-0000-000000000001";
             newListDTO.ListModifietAt = DateTime.UtcNow;
             newListDTO.ListDeletedAt = vm.ListDeletedAt;
+            newListDTO.ListOfMovies = vm.ListOfMovies;
             
-            List<Guid> convertedIDs = new List<Guid>();
-            if (newListDTO.ListOfMovies != null)
+            //lisa filmid nimekirja, olemasolevate id-de põhiselt
+            var listOfMoviesAdd = new List<Movie>();
+            foreach (var movieId in tempParse)
             {
-                convertedIDs = MovieToID(newListDTO.ListOfMovies);
+                var thisMovie = _context.Movies.Where(tm => tm.ID == movieId).ToArray().Take(1);
+                listOfMoviesAdd.Add((Movie)thisMovie);
             }
-            var newList = await _favouriteListsServices.Create(newListDTO, convertedIDs);
+            newListDTO.ListOfMovies = listOfMoviesAdd;  
+            //List<Guid> convertedIDs = new List<Guid>();
+            //if (newListDTO.ListOfMovies != null)
+            //{
+            //    convertedIDs = MovieToID(newListDTO.ListOfMovies);
+            //}
+            var newList = await _favouriteListsServices.Create(newListDTO /*, convertedIDs*/);
             if (newList != null)
             {
                 return BadRequest();
