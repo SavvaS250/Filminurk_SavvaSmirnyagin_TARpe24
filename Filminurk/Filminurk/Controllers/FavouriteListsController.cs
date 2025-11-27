@@ -1,4 +1,5 @@
-﻿using Filminurk.Core.Domain;
+﻿using System.Threading.Tasks;
+using Filminurk.Core.Domain;
 using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
@@ -133,22 +134,22 @@ namespace Filminurk.Controllers
                     IsPrivate = stl.IsPrivate,
                     ListOfMovies = stl.ListOfMovies,
                     IsReported = stl.IsReported,
-                    Image = _context.FilesToDatabase
-                    .Where(i => i.ListID == stl.FavouriteID)
-                    .Select(si => new FavouriteListIndexImageViewModel
-                    {
-                        ImageID = si.ImageID,
-                        ListID = si.ListID,
-                        ImageData = si.ImageData,
-                        ImageTitle = si.ImageTitle,
-                        Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(si.ImageData))
-                    }).ToList().First()
+                    //Image = _context.FilesToDatabase
+                    //.Where(i => i.ListID == stl.FavouriteID)
+                    //.Select(si => new FavouriteListIndexImageViewModel
+                    //{
+                    //    ImageID = si.ImageID,
+                    //    ListID = si.ListID,
+                    //    ImageData = si.ImageData,
+                    //    ImageTitle = si.ImageTitle,
+                    //    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(si.ImageData))
+                    //}).ToList().First()
                 }).First();
 
-            if (!ModelState.IsValid)
-            {
-                return NotFound();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return NotFound();
+            //}
             
             if (thisList == null)
             {
@@ -156,6 +157,27 @@ namespace Filminurk.Controllers
             }
 
             return View("Details", thisList);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserTogglePrivacy(Guid id)
+        {
+            FavouriteList thisList = _favouriteListsServices.DetailAsync(id);
+            FavouriteListDTO updatedList = new FavouriteListDTO();
+            updatedList.FavouriteID = thisList.FavouriteID;
+            updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
+            updatedList.ListName = thisList.ListName;
+            updatedList.ListDescription = thisList.ListDescription;
+            updatedList.IsPrivate = thisList.IsPrivate;
+            updatedList.ListOfMovies = thisList.ListOfMovies;
+            updatedList.IsReported = thisList.IsReported;
+            updatedList.IsMovieOrActor = thisList.IsMovieOrActor;
+            updatedList.ListCreatedAt = thisList.ListCreatedAt;
+            updatedList.ListModifietAt = DateTime.Now;
+            updatedList.ListDeletedAt = thisList.ListDeletedAt;
+
+            thisList.IsPrivate = !thisList.IsPrivate;
+            _favouriteListsServices.Update(thisList);
+            return View("Details");
         }
 
         private List<Guid> MovieToID(List<Movie> listOfMovies)

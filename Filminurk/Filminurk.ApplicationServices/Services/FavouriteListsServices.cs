@@ -49,5 +49,10 @@ namespace Filminurk.ApplicationServices.Services
             return newlist;
 
         }
+
+        public async Task<FavouriteList> Update(FavouriteListDTO updatedList)
+        {
+
+        }
     }
 }
