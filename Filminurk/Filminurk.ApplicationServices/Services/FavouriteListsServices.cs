@@ -50,9 +50,9 @@ namespace Filminurk.ApplicationServices.Services
 
         }
 
-        public async Task<FavouriteList> Update(FavouriteListDTO updatedList)
-        {
+        //public async Task<FavouriteList> Update(FavouriteListDTO updatedList)
+        //{
 
-        }
+        //}
     }
 }

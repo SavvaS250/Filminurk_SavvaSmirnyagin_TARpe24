@@ -159,26 +159,26 @@ namespace Filminurk.Controllers
             return View("Details", thisList);
         }
         [HttpPost]
-        public async Task<IActionResult> UserTogglePrivacy(Guid id)
-        {
-            FavouriteList thisList = _favouriteListsServices.DetailAsync(id);
-            FavouriteListDTO updatedList = new FavouriteListDTO();
-            updatedList.FavouriteID = thisList.FavouriteID;
-            updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
-            updatedList.ListName = thisList.ListName;
-            updatedList.ListDescription = thisList.ListDescription;
-            updatedList.IsPrivate = thisList.IsPrivate;
-            updatedList.ListOfMovies = thisList.ListOfMovies;
-            updatedList.IsReported = thisList.IsReported;
-            updatedList.IsMovieOrActor = thisList.IsMovieOrActor;
-            updatedList.ListCreatedAt = thisList.ListCreatedAt;
-            updatedList.ListModifietAt = DateTime.Now;
-            updatedList.ListDeletedAt = thisList.ListDeletedAt;
+        //public async Task<IActionResult> UserTogglePrivacy(Guid id)
+        //{
+        //    FavouriteList thisList = _favouriteListsServices.DetailAsync(id);
+        //    FavouriteListDTO updatedList = new FavouriteListDTO();
+        //    updatedList.FavouriteID = thisList.FavouriteID;
+        //    updatedList.ListBelongsToUser = thisList.ListBelongsToUser;
+        //    updatedList.ListName = thisList.ListName;
+        //    updatedList.ListDescription = thisList.ListDescription;
+        //    updatedList.IsPrivate = thisList.IsPrivate;
+        //    updatedList.ListOfMovies = thisList.ListOfMovies;
+        //    updatedList.IsReported = thisList.IsReported;
+        //    updatedList.IsMovieOrActor = thisList.IsMovieOrActor;
+        //    updatedList.ListCreatedAt = thisList.ListCreatedAt;
+        //    updatedList.ListModifietAt = DateTime.Now;
+        //    updatedList.ListDeletedAt = thisList.ListDeletedAt;
 
-            thisList.IsPrivate = !thisList.IsPrivate;
-            _favouriteListsServices.Update(thisList);
-            return View("Details");
-        }
+        //    thisList.IsPrivate = !thisList.IsPrivate;
+        //    _favouriteListsServices.Update(thisList);
+        //    return View("Details");
+        //}
 
         private List<Guid> MovieToID(List<Movie> listOfMovies)
         {
