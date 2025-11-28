@@ -183,7 +183,7 @@ namespace Filminurk.Controllers
                 EntryCreatedAt = vm.EntryCreatedAt,
                 EntryModifiedAt = vm.EntryModifiedAt,
             };
-            var result = await _actorServices.Create(dto);
+            var result = await _actorServices.Update(dto);
 
             if (result == null)
             {

@@ -58,5 +58,26 @@ namespace Filminurk.ApplicationServices.Services
 
             return result;
         }
+
+        public async Task<Actor> Update (ActorDTO dto)
+        {
+            Actor actor = new Actor();
+            actor.ActorID = Guid.NewGuid();
+            actor.FirstName = dto.FirstName;
+            actor.LastName = dto.LastName;
+            actor.NickName = dto.NickName;
+            actor.ActorType = dto.ActorType;
+            //actor.MoviesActedFor = dto.MoviesActedFor;
+            //actor.PortraitID = dto.PortraitID;
+            actor.ActorAge = (int)dto.ActorAge;
+            actor.CareerStart = DateTime.Now;
+            actor.CareerEnd = DateTime.Now;
+            actor.EntryCreatedAt = DateTime.Now;
+            actor.EntryModifiedAt = DateTime.Now;
+
+            _context.Actors.Update(actor);
+            await _context.SaveChangesAsync();
+            return actor;
+        }
     }
 }
