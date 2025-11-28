@@ -6,6 +6,7 @@ using Filminurk.Models.Actors;
 using Filminurk.Models.Actros;
 using Filminurk.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Filminurk.Controllers
 {
@@ -136,6 +137,32 @@ namespace Filminurk.Controllers
 
             return View(vm);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var actor = await _actorServices.DetailsAsync(id);
+
+            if (actor == null)
+            {
+                return NotFound();
+            }
+
+
+            var vm = new ActorsCreateUpdateViewModel();
+            vm.ActorID = actor.ActorID;
+            vm.FirstName = actor.FirstName;
+            vm.LastName = actor.LastName;
+            vm.NickName = actor.NickName;
+            vm.ActorAge = actor.ActorAge;
+            vm.ActorType = actor.ActorType;
+            vm.CareerStart = actor.CareerStart;
+            vm.CareerEnd = actor.CareerEnd;
+            vm.EntryCreatedAt = actor.EntryCreatedAt;
+            vm.EntryModifiedAt = actor.EntryModifiedAt;
+
+            return View("CreateUpdate", vm);
         }
     }
 }
