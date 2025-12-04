@@ -11,9 +11,11 @@
 	<table>
 		<tr>@Model.ListName</tr>
 		@* <tr><partial name="_ImageIndex" model="@Model.Image"></partial></tr> *@
+		<tr>@Model.IsPrivate.ToString()</tr>
 	</table>
 </div>
 <div>
+	<form method="post">
 	<table class="table">
 	@foreach (var movie in Model.ListOfMovies)
 	{
@@ -38,13 +40,17 @@
 			</tr>
 	}
 	</table>
+	
 	<div>
 		<input asp-action="UserDelete" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteID" type="submit"
 			class="btn btn-danger" value="Kustuta nimekiri"/>
-		<input asp-action="UserTogglePrivacy" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteID" type="submit"
-			class="btn btn-warning" value="Muuda nimekiri privaatseks" />
+			<input asp-action="UserTogglePrivacy" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteID" type="submit"
+				   class="btn btn-warning" value="Muuda nimekiri privaatseks" />
+		@* <a asp-action="UserTogglePrivacy" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteID" formmethod="get"
+				   class="btn btn-warning" asp-route-id="@Model.FavouriteID" asp-route-thisuserid="@Model.ListBelongsToUser">Muuda privaatsust</a> *@
 		<input asp-action="UserEditList" asp-controller="FavouriteLists" asp-route-id="@Model.FavouriteID" type="submit"
 			class="btn btn-success" value="Muuda nimekirja sisu ja andmeid" />
 		<a asp-action="Index" asp-controller="FavouriteLists" class="btn btn-primary">Tagasi</a>
 	</div>
+	</form>
 </div>

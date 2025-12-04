@@ -18,6 +18,7 @@ namespace Filminurk
             builder.Services.AddScoped<IActorSevices, ActorServices>();
             builder.Services.AddScoped<IUserCommentsServices, UserCommentsServices>();
             builder.Services.AddScoped<IFavouriteListsServices, FavouriteListsServices>();
+            builder.Services.AddScoped<IEmailsServices, EmailsServices>();
             builder.Services.AddDbContext<FilminurkTARpe24Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString
                 ("DefaultConnection")));
 

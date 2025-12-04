@@ -47,7 +47,11 @@
 				{
 					@foreach (var list in Model)
 					{
-						<table>
+						if (list.ListDeletedAt == null)
+						{
+							
+						
+						 <table>
 							<tr>
 								<td colspan="2">
 									<a asp-action="UserDetails" asp-controller="FavouriteLists" asp-route-id="@list.FavouriteID"
@@ -56,6 +60,7 @@
 							</tr>
 							<tr>
 								<td>
+									@list.ListDeletedAt.ToString()
 									@foreach (var image in list.Image)
 									{
 										<partial name="_ImageIndex" model="image"/>
@@ -64,7 +69,8 @@
 								</td>
 								<td>@list.ListDescription</td>
 							</tr>
-						</table>
+						 </table>
+						}
 					}
 					rowNumber++;
 				}

@@ -24,6 +24,7 @@ namespace Filminurk.ApplicationServices.Services
         public async Task<FavouriteList> DetailAsync(Guid id)
         {
             var result = await _context.FavouriteLists
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.FavouriteID == id);
             return result;
         }
@@ -50,9 +51,50 @@ namespace Filminurk.ApplicationServices.Services
 
         }
 
-        //public async Task<FavouriteList> Update(FavouriteListDTO updatedList)
-        //{
+        public async Task<FavouriteList> Update(FavouriteListDTO updatedList, string typeOfMethod)
+        {
+            
 
-        //}
+            FavouriteList updatedListInDB = new();
+
+            updatedListInDB.FavouriteID = updatedList.FavouriteID;
+            updatedListInDB.ListBelongsToUser = updatedList.ListBelongsToUser;
+            updatedListInDB.IsMovieOrActor = updatedList.IsMovieOrActor;
+            updatedListInDB.ListName = updatedList.ListName;
+            updatedListInDB.ListDescription = updatedList.ListDescription;
+            updatedListInDB.IsPrivate = updatedList.IsPrivate;
+            updatedListInDB.ListOfMovies = updatedList.ListOfMovies;
+            updatedListInDB.ListCreatedAt = updatedList.ListCreatedAt;
+            updatedListInDB.ListDeletedAt = updatedList.ListDeletedAt;
+            updatedListInDB.ListModifietAt = updatedList.ListModifietAt;
+            
+            if (typeOfMethod == "Delete")
+            {
+                _context.FavouriteLists.Attach(updatedListInDB);
+                _context.Entry(updatedListInDB).Property(l => l.ListDeletedAt).IsModified = true;
+            }
+            else if (typeOfMethod == "Private")
+            {
+                _context.FavouriteLists.Attach(updatedListInDB);
+                _context.Entry(updatedListInDB).Property(l => l.IsPrivate).IsModified = true;
+            }
+            _context.Entry(updatedListInDB).Property(l => l.ListModifietAt).IsModified = true;
+            await _context.SaveChangesAsync();
+            return updatedListInDB;
+
+        }
+
+        public async Task<FavouriteList> Delete(Guid id)
+        {
+            var result = await _context.FavouriteLists.
+                FirstOrDefaultAsync(x => x.FavouriteID == id);
+            if (result != null)
+            {
+                _context.FavouriteLists.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+
+            return result;
+        }
     }
 }
