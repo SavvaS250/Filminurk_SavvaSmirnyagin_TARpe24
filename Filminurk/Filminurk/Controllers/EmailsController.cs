@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Filminurk.Controllers
 {
-    public class EmailController : Controller
+    public class EmailsController : Controller
     {
         private readonly IEmailsServices _emailsServices;
-        public EmailController(IEmailsServices emailsServices)
+        public EmailsController(IEmailsServices emailsServices)
         {
             _emailsServices = emailsServices;
         }
