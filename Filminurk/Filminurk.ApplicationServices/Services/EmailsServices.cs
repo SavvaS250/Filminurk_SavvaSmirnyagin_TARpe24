@@ -8,7 +8,7 @@ using Filminurk.Core.ServiceInterface;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using Environment = Filminurk.Data.Environment;
+using Environment = Filminurk.Data.EnvironmentExample;
 
 namespace Filminurk.ApplicationServices.Services
 {
