@@ -195,9 +195,11 @@ namespace Filminurk.Controllers
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = model.DisplayName,
+                    UserName = model.Email,
                     Email = model.Email,
                     ProfileType = model.ProfileType,
+                    DisplayName = model.DisplayName,
+                    AvatarImageID = Guid.NewGuid().ToString(),
 
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -273,6 +275,14 @@ namespace Filminurk.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                }
+                if (result.Succeeded == false)
+                {
+                    ModelState.AddModelError("", "Kasutajanimi või parool on vale");
+                }
+                if (result.IsNotAllowed)
+                {
+                    ModelState.AddModelError("", "Sisselogimine ebaõnnestus, kasutaja keelatud");
                 }
                 if (result.IsLockedOut)
                 {
