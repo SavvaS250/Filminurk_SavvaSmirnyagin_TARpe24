@@ -1,4 +1,5 @@
 ﻿using Filminurk.Core.Domain;
+using Filminurk.Core.Dto;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Accounts;
@@ -19,12 +20,14 @@ namespace Filminurk.Controllers
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            FilminurkTARpe24Context context
+            FilminurkTARpe24Context context,
+            IEmailsServices emailsServices
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _emailsServices = emailsServices;
         }
 
         [HttpGet]
@@ -205,12 +208,24 @@ namespace Filminurk.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    var dto = new EmailDTO()
+                    {
+                        SendToThisAdress = user.Email,
+                        EmailSubject = "Email confirmation",
+                        EmailContent = "Does it work????",
+                    };
+
+                    _emailsServices.SendEmail(dto);
+
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new {userID = user.Id, token = token}, Request.Scheme);
                     //HOMEWORK TASK: koosta email kasutajalt pärineva aadressile saatmiseks, kasutaja saab oma postkastist kätte emaili, kinnitus lingiga
                     //mille jaoks kasutatakse tokenit. Siin tuleb välja kutsuda vastav, uus, emaili saatmise meetod, mis saadab
                     //õige sisuga kirja
+
+                    
                 }
 
                 
