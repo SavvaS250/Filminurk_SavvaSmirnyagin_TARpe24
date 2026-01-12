@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Filminurk.Core.Dto.AccuWeather
 {
-    public class AccuLocationRoot
+    public class AccuLocationRootDTO
     {
         public Headline Headline { get; set; }
         public DailyForecast[] DailyForecasts { get; set; }

@@ -22,6 +22,7 @@ namespace Filminurk
             builder.Services.AddScoped<IFavouriteListsServices, FavouriteListsServices>();
             builder.Services.AddScoped<IEmailsServices, EmailsServices>();
             builder.Services.AddScoped<IAccountServices, AccountServices>();
+            builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
             builder.Services.AddDbContext<FilminurkTARpe24Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString
                 ("DefaultConnection")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

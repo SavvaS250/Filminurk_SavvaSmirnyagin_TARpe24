@@ -78,21 +78,21 @@ namespace Filminurk.Core.Dto.AccuWeather
 
     public class Metric
     {
-        public int Value { get; set; }
-        public int Unit { get; set; }
+        public double Value { get; set; }
+        public string Unit { get; set; } = string.Empty;
         public int UnitType { get; set; }
 
     }
     public class Imperial
     {
-        public int Value { get; set; }
-        public int Unit { get; set; }
+        public double Value { get; set; }
+        public string Unit { get; set; } = string.Empty;
         public int UnitType { get; set; }
     }
 
     public class SupplementalAdminArea
     {
-        public int Level { get; set; }
+        public string Level { get; set; } = string.Empty;
         public string LocalizedName { get; set; } = string.Empty;
         public string EnglishName { get; set; } = string.Empty;
     }
