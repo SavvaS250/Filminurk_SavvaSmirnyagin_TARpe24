@@ -17,7 +17,7 @@ namespace Filminurk.ApplicationServices.Services
         public async Task<AccuLocationWeatherResultDTO> AccuWeatherResult(AccuLocationWeatherResultDTO dto)
         {
             //tallinnkey 127964
-            string apikey = Filminurk.Data.Environment.accuweatherkey; //key tuleb environmentist, ega pole hardcodetud
+            //string apikey = Filminurk.Data.Environment.accuweatherkey; //key tuleb environmentist, ega pole hardcodetud
             var baseUrl = "https://dataservice.accuweather.com/forecasts/v1/daily/1day/";
             var cityUrl = "https://dataservice.accuweather.com/locations/v1/cities/search";
 
@@ -53,7 +53,7 @@ namespace Filminurk.ApplicationServices.Services
                 httpClient.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
-                var response = httpClient.GetAsync($"?q={dto.CityName}&apikey={apikey}&details=true").GetAwaiter().GetResult();
+                var response = httpClient.GetAsync($"?q={dto.CityName}&apikey=&details=true").GetAwaiter().GetResult();
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 //using var doc = JsonDocument.Parse(jsonResponse);
                 //Console.WriteLine(doc.RootElement.ToString());
@@ -70,11 +70,11 @@ namespace Filminurk.ApplicationServices.Services
                 }
             }
 
-            string weatherResponse = baseUrl + $"{dto.CityCode}?apikey={apikey}&metric=true";
+            string weatherResponse = baseUrl + $"{dto.CityCode}?apikey=&metric=true";
 
             using (var clientWeather = new HttpClient())
             {
-                var httpResponseWeather = clientWeather.GetAsync(weatherResponse).GetAwaiter().GetResult();
+               var httpResponseWeather = clientWeather.GetAsync(weatherResponse).GetAwaiter().GetResult();
                 string jsonWeather = await httpResponseWeather.Content.ReadAsStringAsync();
 
                 AccuLocationRootDTO weatherRootDTO = JsonSerializer.Deserialize<AccuLocationRootDTO>(jsonWeather);
