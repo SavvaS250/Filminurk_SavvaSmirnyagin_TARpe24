@@ -62,7 +62,7 @@ namespace Filminurk.ApplicationServices.Services
         public async Task<Actor> Update (ActorDTO dto)
         {
             Actor actor = new Actor();
-            actor.ActorID = Guid.NewGuid();
+            actor.ActorID = (Guid)dto.ActorID;
             actor.FirstName = dto.FirstName;
             actor.LastName = dto.LastName;
             actor.NickName = dto.NickName;
@@ -72,8 +72,8 @@ namespace Filminurk.ApplicationServices.Services
             actor.ActorAge = (int)dto.ActorAge;
             actor.CareerStart = DateTime.Now;
             actor.CareerEnd = DateTime.Now;
-            actor.EntryCreatedAt = DateTime.Now;
-            actor.EntryModifiedAt = DateTime.Now;
+            actor.EntryCreatedAt = dto.EntryCreatedAt;
+            actor.EntryModifiedAt = dto.EntryModifiedAt;
 
             _context.Actors.Update(actor);
             await _context.SaveChangesAsync();
