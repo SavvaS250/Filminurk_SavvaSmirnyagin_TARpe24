@@ -1,5 +1,5 @@
-﻿using Filminurk.Core.Dto.AccuWeather;
-//using Filminurk.Core.Dto.AccuWeatherDTOs;
+﻿
+using Filminurk.Core.Dto.AccuWeather;
 using Filminurk.Core.ServiceInterface;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
+using Environment = Filminurk.Data.Environment;
 
 namespace Filminurk.ApplicationServices.Services
 {
@@ -20,6 +21,7 @@ namespace Filminurk.ApplicationServices.Services
             //string apikey = Filminurk.Data.Environment.accuweatherkey; //key tuleb environmentist, ega pole hardcodetud
             var baseUrl = "https://dataservice.accuweather.com/forecasts/v1/daily/1day/";
             var cityUrl = "https://dataservice.accuweather.com/locations/v1/cities/search";
+            var accuWeatherKey = Environment.accuweatherkey;
 
             /*get city*/
 
@@ -70,7 +72,7 @@ namespace Filminurk.ApplicationServices.Services
                 }
             }
 
-            string weatherResponse = baseUrl + $"{dto.CityCode}?apikey=&metric=true";
+            string weatherResponse = baseUrl + $"{dto.CityName}?apikey={accuWeatherKey}&metric=true";
 
             using (var clientWeather = new HttpClient())
             {
