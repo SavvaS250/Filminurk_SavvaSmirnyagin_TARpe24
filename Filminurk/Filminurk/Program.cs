@@ -1,4 +1,5 @@
 using Filminurk.ApplicationServices.Services;
+using Filminurk.Controllers;
 using Filminurk.Core.Domain;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
@@ -14,6 +15,7 @@ namespace Filminurk
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IMovieServices, MovieServices>();
             builder.Services.AddScoped<IFilesServices, FilesServices>();
@@ -54,6 +56,8 @@ namespace Filminurk
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapHub<ChatHub>("/chatHub");
 
             app.MapControllerRoute(
                 name: "default",
