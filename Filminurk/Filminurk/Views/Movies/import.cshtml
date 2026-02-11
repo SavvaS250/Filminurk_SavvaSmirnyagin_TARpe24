@@ -1,0 +1,14 @@
+﻿﻿
+@model Filminurk.Models.Movies.MovieImportViewModel
+
+<h1>Filmi importimine</h1>
+<h3>Siin saab filmi nime järgi otsida filmi ja andmebaasi lisada.</h3>
+<div class="form-group row">
+	<form method="post">
+		<label asp-for="movieName" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input asp-for="movieName" class="form-control" />
+		</div>
+		<input asp-action="ImportMovie" asp-controller="OMD" type="submit" class="btn btn-primary" value="Import" />
+	</form>
+</div>

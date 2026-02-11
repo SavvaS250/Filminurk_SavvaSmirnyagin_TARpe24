@@ -1,4 +1,4 @@
-﻿using Filminurk.Core.Dto.OMDbDTOs;
+﻿using Filminurk.Core.Dto.OMDDTOs;
 using Filminurk.Core.ServiceInterface;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Filminurk.ApplicationServices.Services
 {
-    public class OMDbServices : IOMDbServices
+    public class OMDServices : IOMDServices
     {
-        public async Task<OMDbSearchRootDTO> OMDbSearchResult(string movieName)
+        public async Task<OMDSearchRootDTO> OMDbSearchResult(string movieName)
         {
             string apikey = Filminurk.Data.Environment.omdbapikey;
             var searchUrl = $"https://omdbapi.com/?apikey={apikey}&t={movieName}";
@@ -24,7 +24,7 @@ namespace Filminurk.ApplicationServices.Services
                 );
                 var response = client.GetAsync(searchUrl).GetAwaiter().GetResult();
                 var responseJson = await response.Content.ReadAsStringAsync();
-                OMDbSearchRootDTO dto = JsonSerializer.Deserialize<OMDbSearchRootDTO>(responseJson);
+                OMDSearchRootDTO dto = JsonSerializer.Deserialize<OMDSearchRootDTO>(responseJson);
                 return dto;
             }
         }

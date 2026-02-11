@@ -247,6 +247,12 @@ namespace Filminurk.Controllers
                     FilePath = y.ExistingFilePath
                 }).ToArrayAsync();
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Import()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Filminurk.Core.Domain;
-using Filminurk.Core.Dto.OMDbDTOs;
+using Filminurk.Core.Dto.OMDDTOs;
 using Filminurk.Core.ServiceInterface;
 using Filminurk.Data;
 using Filminurk.Models.Movies;
@@ -8,14 +8,14 @@ using System.Globalization;
 
 namespace Filminurk.Controllers
 {
-    public class OMDBController : Controller
+    public class OMDController : Controller
     {
-        private readonly IOMDbServices _omdbServices;
+        private readonly IOMDServices _omdServices;
         private readonly FilminurkTARpe24Context _context;
 
-        public OMDBController(IOMDbServices omdbServices, FilminurkTARpe24Context context)
+        public OMDController(IOMDServices omdServices, FilminurkTARpe24Context context)
         {
-            _omdbServices = omdbServices;
+            _omdServices = omdServices;
             _context = context;
         }
 
@@ -28,7 +28,7 @@ namespace Filminurk.Controllers
         [HttpPost]
         public async Task<IActionResult> ImportMovie(MovieImportViewModel model)
         {
-            OMDbSearchRootDTO dto = await _omdbServices.OMDbSearchResult(model.movieName);
+            OMDSearchRootDTO dto = await _omdServices.OMDbSearchResult(model.movieName);
 
             if (dto.Response == "False")
             {
@@ -52,12 +52,12 @@ namespace Filminurk.Controllers
                     movie.Director = dto.Director;
                     movie.CurrentRating = Convert.ToDouble(dto.imdbRating.Replace(".", ","));
                     movie.Country = dto.Country;
-                    movie.FirstPublished = DateOnly.ParseExact(
-                        dto.Released,
-                        "dd MMM yyyy",
-                        CultureInfo.InvariantCulture
-                    );
-                    movie.MovieGenre = dto.Genre;
+                    //movie.FirstPublished = DateOnly.ParseExact(
+                    //    dto.Released,
+                    //    "dd MMM yyyy",
+                    //    CultureInfo.InvariantCulture
+                    //);
+                   // movie.MovieGenre = dto.Genre;
                     movie.Actors = movieActors;
                     movie.EntryCreatedAt = DateTime.Now;
                     movie.EntryModifiedAt = DateTime.Now;
