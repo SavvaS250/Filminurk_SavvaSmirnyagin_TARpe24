@@ -218,7 +218,7 @@ namespace Filminurk.Controllers
                     {
                         SendToThisAdress = user.Email,
                         EmailSubject = "Email confirmation",
-                        EmailContent = $"Does it work???? {confirmationLink}",
+                        EmailContent = $"To confirm your email open this url: {confirmationLink}",
                     };
 
                     _emailsServices.SendEmail(dto);
