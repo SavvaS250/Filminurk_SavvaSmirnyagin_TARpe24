@@ -12,6 +12,6 @@ namespace Filminurk.Data
         public static string gmailpass = ""; //password for user that has access to this server (google app password)
         public static string gmailusername = ""; // username of email sending user (gmail account)
         public static string accuweatherkey = ""; // api key to use accuweather services
-    
+        public static string omdbapikey = ""; // api key for omd
     }
 }
